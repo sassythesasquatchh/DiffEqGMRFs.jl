@@ -61,7 +61,8 @@ mod tests {
         let pred = array![1.0, 2.0, 3.0];
         let soln = array![1.0, 1.0, 2.0];
         let value = rmse(&pred, &soln);
-        assert!((value - 1.0_f64.sqrt()).abs() < 1e-12);
+        let expected = (2.0_f64 / 3.0_f64).sqrt();
+        assert!((value - expected).abs() < 1e-12);
     }
 
     #[test]
