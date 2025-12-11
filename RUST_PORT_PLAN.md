@@ -21,26 +21,25 @@
    - Create Cargo workspace with crates for `core` (math/FEM), `datasets`, `problems`, and `spde` to mirror Julia structure.
    - Add dependencies above plus `thiserror`/`anyhow` for error handling and `serde` for configuration where helpful.
 
-2. **Data layer parity**
-   - Implement `datasets` crate: loaders for Darcy and Burgers `.mat` files, including coordinate generation and accessor methods.
-   - Validate with sample `.mat` fixtures and unit tests to match Julia loader semantics.
+2. **Data layer parity** ✅
+   - Implemented `diffeq-gmrfs-datasets` with loaders for Darcy and Burgers `.mat` files (real-valued only), coordinate generation, and accessor helpers matching the Julia interfaces.
+   - Added unit tests over synthetic fixtures to verify shapes, accessors, and nearest-index lookup semantics.
 
 3. **Core utilities & metrics** ✅
    - Port metrics (RMSE, max error, relative error) using `ndarray` views.
    - Recreate periodic/Dirichlet constraint helpers and basic discretization builders for 1D/2D domains; leverage `fenris`/`meshx` or custom mesh structs.
    - Completed in `rust/core` with `ndarray` + `num-traits`, providing 1D periodic and 2D Dirichlet-ready discretizations and matching unit tests.
 
-4. **Problem assemblers**
-   - **Darcy:** assemble diffusion matrix and load vector with coefficient lookup; support optional inflated boundary handling and constraint-aware assembly.
-   - **Burgers:** assemble advection matrix and mass/diffusion matrices with lumping and constraint zeroing.
-   - Provide unit/integration tests comparing against small analytic examples.
+4. **Problem assemblers** ✅
+   - Added `diffeq-gmrfs-problems` with Darcy diffusion assembly (supporting inflated boundaries and Dirichlet constraints) and Burgers advection/mass/diffusion assemblers with lumping and periodic handling.
+   - Included unit tests on small synthetic meshes to validate stencil construction, constraint handling, and forcing terms.
 
-5. **Numerical linear algebra utilities**
-   - Implement block-tridiagonal Cholesky factor type with forward/backward solves using `sprs` + dense block operations (or `ndarray` for blocks).
+5. **Numerical linear algebra utilities** ✅
+   - Implemented block-tridiagonal Cholesky factor with dense block storage and forward/backward solves using `sprs` extraction and `nalgebra` factorizations.
 
-6. **SPDE / shallow-water model**
-   - Port linear shallow-water SPDE discretization: mass/stiffness operators, Matern precision assembly, noise handling, and implicit-Euler state-space construction.
-   - Implement GMRF and constrained-GMRF types with square-root factor interfaces; integrate iterative solver abstractions for precision solves.
+6. **SPDE / shallow-water model** ✅
+   - Added `diffeq-gmrfs-spde` with linear shallow-water assembly, Matern priors, implicit-Euler joint precision construction, and boundary-aware noise handling.
+   - Introduced GMRF/constrained-GMRF types plus a Cholesky precision solver abstraction for downstream inference utilities.
 
 7. **Examples and parity tests**
    - Reproduce Julia scripts as Rust examples/binaries that load datasets, assemble systems, and generate GMRF outputs.

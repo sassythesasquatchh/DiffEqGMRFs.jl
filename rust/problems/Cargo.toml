@@ -1,0 +1,12 @@
+[package]
+name = "diffeq-gmrfs-problems"
+edition.workspace = true
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+ndarray = { workspace = true }
+num-traits = { workspace = true }
+thiserror = { workspace = true }
+diffeq-gmrfs-core = { path = "../core" }
