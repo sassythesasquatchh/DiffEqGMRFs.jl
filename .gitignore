@@ -3,3 +3,5 @@
 *.jl.mem
 /Manifest.toml
 .DS_Store
+target/
+rust/target/
