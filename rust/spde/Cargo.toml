@@ -1,0 +1,13 @@
+[package]
+name = "diffeq-gmrfs-spde"
+edition.workspace = true
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+diffeq-gmrfs-core = { path = "../core" }
+ndarray = { workspace = true }
+nalgebra = { workspace = true }
+sprs = { workspace = true }
+thiserror = { workspace = true }

@@ -8,8 +8,15 @@ pub struct Node2D {
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Constraint {
-    Dirichlet { node: usize, value: f64 },
-    Periodic { master: usize, slave: usize, weight: f64 },
+    Dirichlet {
+        node: usize,
+        value: f64,
+    },
+    Periodic {
+        master: usize,
+        slave: usize,
+        weight: f64,
+    },
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -148,7 +155,10 @@ fn boundary_dirichlet_nodes(
                 || (node.y - min_y).abs() < f64::EPSILON
                 || (node.y - max_y).abs() < f64::EPSILON
             {
-                Some(Constraint::Dirichlet { node: idx, value: 0.0 })
+                Some(Constraint::Dirichlet {
+                    node: idx,
+                    value: 0.0,
+                })
             } else {
                 None
             }
@@ -158,9 +168,7 @@ fn boundary_dirichlet_nodes(
 
 fn evenly_spaced(start: f64, end: f64, step: f64) -> Vec<f64> {
     let count = ((end - start) / step).round() as usize;
-    (0..=count)
-        .map(|i| start + i as f64 * step)
-        .collect()
+    (0..=count).map(|i| start + i as f64 * step).collect()
 }
 
 #[cfg(test)]
@@ -175,7 +183,11 @@ mod tests {
         assert_eq!(discretization.quadrature_order, 3);
         assert_eq!(discretization.constraints.len(), 1);
         match &discretization.constraints[0] {
-            Constraint::Periodic { master, slave, weight } => {
+            Constraint::Periodic {
+                master,
+                slave,
+                weight,
+            } => {
                 assert_eq!((*master, *slave), (0, 4));
                 assert!((*weight - 1.0).abs() < 1e-12);
             }
@@ -189,10 +201,9 @@ mod tests {
         assert_eq!(mesh.nodes.len(), 9); // (n+1)^2 nodes
         assert_eq!(mesh.elements.len(), 8); // 2 triangles per square cell, 2x2 grid -> 4 cells
         assert!(!mesh.constraints.is_empty());
-        assert!(mesh
-            .constraints
-            .iter()
-            .all(|c| matches!(c, Constraint::Dirichlet { value, .. } if (*value - 0.0).abs() < 1e-12)));
+        assert!(mesh.constraints.iter().all(
+            |c| matches!(c, Constraint::Dirichlet { value, .. } if (*value - 0.0).abs() < 1e-12)
+        ));
     }
 
     #[test]
@@ -201,7 +212,13 @@ mod tests {
             periodic_unit_interval_discretization(0, 1, 0.0),
             Err(MeshError::InvalidResolution)
         ));
-        assert!(matches!(uniform_unit_square_discretization(0, 0.0, false, 1, 0.0), Err(MeshError::InvalidResolution)));
-        assert!(matches!(uniform_unit_square_discretization(1, 0.0, false, 0, 0.0), Err(MeshError::InvalidElementOrder)));
+        assert!(matches!(
+            uniform_unit_square_discretization(0, 0.0, false, 1, 0.0),
+            Err(MeshError::InvalidResolution)
+        ));
+        assert!(matches!(
+            uniform_unit_square_discretization(1, 0.0, false, 0, 0.0),
+            Err(MeshError::InvalidElementOrder)
+        ));
     }
 }

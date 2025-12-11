@@ -1,0 +1,13 @@
+[package]
+name = "diffeq-gmrfs-datasets"
+edition.workspace = true
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+ndarray = { workspace = true }
+thiserror = { workspace = true }
+matfile = { workspace = true }
+matfile-ndarray = { workspace = true }
+num-traits = { workspace = true }

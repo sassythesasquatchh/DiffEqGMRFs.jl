@@ -1,0 +1,16 @@
+[package]
+name = "diffeq-gmrfs-examples"
+version = "0.1.0"
+edition = "2021"
+authors = ["DiffEqGMRFs Contributors"]
+license = "MIT"
+description = "Runnable examples and parity tests for the DiffEqGMRFs Rust port"
+
+[dependencies]
+diffeq-gmrfs-core = { path = "../core" }
+diffeq-gmrfs-datasets = { path = "../datasets" }
+diffeq-gmrfs-problems = { path = "../problems" }
+diffeq-gmrfs-spde = { path = "../spde" }
+ndarray = { workspace = true, features = ["std"] }
+thiserror = { workspace = true }
+nalgebra = { workspace = true }

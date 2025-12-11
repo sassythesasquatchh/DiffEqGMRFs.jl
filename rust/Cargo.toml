@@ -1,6 +1,6 @@
 [workspace]
 members = [
-    "core",
+    "core", "datasets", "problems", "spde", "examples",
 ]
 resolver = "2"
 
@@ -9,3 +9,12 @@ edition = "2021"
 version = "0.1.0"
 authors = ["DiffEqGMRFs Contributors"]
 license = "MIT"
+
+[workspace.dependencies]
+ndarray = { version = "0.15", default-features = false, features = ["std"] }
+num-traits = "0.2"
+thiserror = "1"
+matfile = "0.5"
+matfile-ndarray = "0.2"
+nalgebra = "0.32"
+sprs = { version = "0.11" }

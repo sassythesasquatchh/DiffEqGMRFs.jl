@@ -10,7 +10,11 @@ where
     S: Data<Elem = A>,
     D: Dimension,
 {
-    assert_eq!(pred.shape(), soln.shape(), "arrays must have matching shapes");
+    assert_eq!(
+        pred.shape(),
+        soln.shape(),
+        "arrays must have matching shapes"
+    );
     let len = pred.len() as f64;
     let sum_sq: A = Zip::from(pred)
         .and(soln)
@@ -25,7 +29,11 @@ where
     S: Data<Elem = A>,
     D: Dimension,
 {
-    assert_eq!(pred.shape(), soln.shape(), "arrays must have matching shapes");
+    assert_eq!(
+        pred.shape(),
+        soln.shape(),
+        "arrays must have matching shapes"
+    );
     Zip::from(pred)
         .and(soln)
         .fold(A::zero(), |acc, &p, &s| acc.max((p - s).abs()))
@@ -38,7 +46,11 @@ where
     S: Data<Elem = A>,
     D: Dimension,
 {
-    assert_eq!(pred.shape(), soln.shape(), "arrays must have matching shapes");
+    assert_eq!(
+        pred.shape(),
+        soln.shape(),
+        "arrays must have matching shapes"
+    );
     let mut diff_norm_sq = A::zero();
     let mut soln_norm_sq = A::zero();
 
@@ -61,7 +73,8 @@ mod tests {
         let pred = array![1.0, 2.0, 3.0];
         let soln = array![1.0, 1.0, 2.0];
         let value = rmse(&pred, &soln);
-        assert!((value - 1.0_f64.sqrt()).abs() < 1e-12);
+        let expected = (2.0_f64 / 3.0_f64).sqrt();
+        assert!((value - expected).abs() < 1e-12);
     }
 
     #[test]
