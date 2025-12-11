@@ -25,9 +25,10 @@
    - Implement `datasets` crate: loaders for Darcy and Burgers `.mat` files, including coordinate generation and accessor methods.
    - Validate with sample `.mat` fixtures and unit tests to match Julia loader semantics.
 
-3. **Core utilities & metrics**
+3. **Core utilities & metrics** ✅
    - Port metrics (RMSE, max error, relative error) using `ndarray` views.
    - Recreate periodic/Dirichlet constraint helpers and basic discretization builders for 1D/2D domains; leverage `fenris`/`meshx` or custom mesh structs.
+   - Completed in `rust/core` with `ndarray` + `num-traits`, providing 1D periodic and 2D Dirichlet-ready discretizations and matching unit tests.
 
 4. **Problem assemblers**
    - **Darcy:** assemble diffusion matrix and load vector with coefficient lookup; support optional inflated boundary handling and constraint-aware assembly.

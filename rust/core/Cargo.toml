@@ -1,0 +1,12 @@
+[package]
+name = "diffeq-gmrfs-core"
+version = "0.1.0"
+edition = "2021"
+authors = ["DiffEqGMRFs Contributors"]
+license = "MIT"
+description = "Core utilities, metrics, and mesh helpers for the DiffEqGMRFs Rust port"
+
+[dependencies]
+ndarray = { version = "0.15", default-features = false, features = ["std"] }
+num-traits = "0.2"
+thiserror = "1"
